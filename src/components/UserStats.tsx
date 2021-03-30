@@ -1,12 +1,9 @@
 import { Box, Text } from "@chakra-ui/layout";
-
-interface UserStatsProps {
-  amacoins: number;
-  clickReward: number;
-}
+import { UserStatsProps } from "../interfaces";
 
 function formatNumber(amount: number) {
-  return amount.toFixed(1);
+  // return amount.toFixed(1);
+  return amount;
 }
 
 export const UserStats: React.FC<UserStatsProps> = ({ amacoins, clickReward }) => {
@@ -14,7 +11,7 @@ export const UserStats: React.FC<UserStatsProps> = ({ amacoins, clickReward }) =
   return (
     <Box position="fixed" top="1rem" left="1rem">
       <Text>Amacoins: {formatNumber(amacoins)}</Text>
-      <Text>CPC: {formatNumber(clickReward)}</Text>
+      <Text>Coins Per Click: {formatNumber(clickReward)}</Text>
     </Box>
   );
 };
