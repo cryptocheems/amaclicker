@@ -1,9 +1,9 @@
-import { Text, Button } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { Container } from "../components/Container";
 
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
-import { CTA } from "../components/CTA";
 import { useEffect, useReducer } from "react";
+import { UserStats } from "../components/UserStats";
 
 interface iAmacState {
   amacoins: number;
@@ -56,7 +56,8 @@ const Index = () => {
 
   return (
     <Container height="100vh">
-      <Text>{state.amacoins}</Text>
+      <UserStats amacoins={state.amacoins} clickReward={state.clickReward} />
+
       <Button onClick={() => dispatch({ type: "upgrade" })}>
         Upgrade (cost: 20 amac, +0.1 amac)
       </Button>
@@ -66,8 +67,6 @@ const Index = () => {
       <Button onClick={() => dispatch({ type: "click" })} fontSize="8xl" padding="100">
         A
       </Button>
-
-      <CTA />
     </Container>
   );
 };
