@@ -3,7 +3,7 @@ export interface UserStatsProps {
   clickReward: number;
 }
 
-interface upgrade {
+export interface upgrade {
   name: string;
   cost: number;
   boost: number;

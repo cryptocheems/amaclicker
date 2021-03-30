@@ -1,17 +1,18 @@
 import { Button, Image } from "@chakra-ui/react";
+import toDecimals from "round-to-decimal";
 import { Container } from "../components/Container";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
 import { useEffect, useReducer } from "react";
 import { UserStats } from "../components/UserStats";
-import { iAmacState, upgradeButtonPayload } from "../interfaces";
+import { iAmacState, upgrade, upgradeButtonPayload } from "../interfaces";
 
 const defaultState: iAmacState = {
   amacoins: 0,
   clickReward: 1,
   upgrades: [
     {
-      name: "Doge",
-      cost: 20,
+      name: "$19.99 Amacoin Gift Card",
+      cost: 19.99,
       boost: 0.1,
       userAmount: 0,
     },
@@ -24,6 +25,8 @@ const defaultState: iAmacState = {
   ],
 };
 
+const calcCost = (upgrade: upgrade) => toDecimals(upgrade.cost * 1.01 ** upgrade.userAmount, 2);
+
 function reducer(state: iAmacState, action: { type: string; payload?: unknown }): iAmacState {
   const coins = state.amacoins;
   switch (action.type) {
@@ -33,9 +36,7 @@ function reducer(state: iAmacState, action: { type: string; payload?: unknown })
       const payload = action.payload as upgradeButtonPayload;
       const upgrade = payload.upgrade;
       const upgrades = state.upgrades;
-
-      const cost = upgrade.cost * (1 + upgrade.userAmount / 100);
-      console.log(cost);
+      const cost = calcCost(upgrade);
 
       if (coins >= cost) {
         const currentUpgrade = upgrades[payload.index];
@@ -93,7 +94,7 @@ const Index = () => {
 
       {state.upgrades.map((upgrade, index) => (
         <Button onClick={() => dispatch({ type: "upgrade", payload: { upgrade, index } })}>
-          {upgrade.name} (cost: {upgrade.cost} amac, +{upgrade.boost} amac, bal:{" "}
+          {upgrade.name} (cost: {calcCost(upgrade)} amac, +{upgrade.boost} amac, bal:{" "}
           {upgrade.userAmount})
         </Button>
       ))}

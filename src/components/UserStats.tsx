@@ -1,9 +1,9 @@
 import { Box, Text } from "@chakra-ui/layout";
+import toDecimals from "round-to-decimal";
 import { UserStatsProps } from "../interfaces";
 
 function formatNumber(amount: number) {
-  // return amount.toFixed(1);
-  return amount;
+  return toDecimals(amount, 2);
 }
 
 export const UserStats: React.FC<UserStatsProps> = ({ amacoins, clickReward }) => {
