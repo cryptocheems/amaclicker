@@ -10,10 +10,10 @@ interface iAmacState {
   clickReward: number;
 }
 
-interface upgrade {
-  cost: number;
-  boost: number;
-}
+// interface upgrade {
+//   cost: number;
+//   boost: number;
+// }
 
 const defaultState: iAmacState = {
   amacoins: 0,
