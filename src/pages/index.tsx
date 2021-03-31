@@ -1,12 +1,12 @@
-import { Box, Button, Heading, Image, Text, VStack } from "@chakra-ui/react";
+import { Button, Heading, Image, Link, Text, VStack } from "@chakra-ui/react";
 import Head from "next/head";
-import toDecimals from "round-to-decimal";
 import { Container } from "../components/Container";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
 import { useEffect, useReducer } from "react";
 import { UserStats } from "../components/UserStats";
 import { iAmacState, upgrade, upgradeButtonPayload } from "../interfaces";
 import { StoreItem } from "../components/StoreItem";
+import { calcCost, getArrayNumber } from "../utility";
 
 const upgradesInfo: upgrade[] = [
   {
@@ -28,10 +28,6 @@ const defaultState: iAmacState = {
   clickReward: 1,
   upgrades: [],
 };
-
-export const calcCost = (upgrade: upgrade, amount: number) =>
-  toDecimals(upgrade.cost * 1.01 ** amount, 2);
-export const getArrayNumber = (array: number[], index: number) => array[index] ?? 0;
 
 function reducer(state: iAmacState, action: { type: string; payload?: unknown }): iAmacState {
   const coins = state.amacoins;
@@ -91,6 +87,8 @@ const Index = () => {
 
       <DarkModeSwitch />
       <Button
+        position="absolute"
+        top="1"
         onClick={() => {
           // TODO: Delete this button
           localStorage.setItem("state", JSON.stringify(defaultState));
@@ -105,16 +103,42 @@ const Index = () => {
         borderRadius="full"
         height="2em"
         width="2em"
+        _hover={{ transform: "scale(2.9, 0.5)" }}
+        _active={{ transform: "scale(0.5, 3)" }}
       >
         <Image src="amacPFP.png" />
       </Button>
 
-      <VStack borderWidth="thin" width="20em">
+      <VStack borderWidth="thin" width="20em" p="2.5" borderRadius="2xl">
         <Heading>Store</Heading>
+        <Heading fontSize="lg" w="100%" ml="2">
+          Upgrades
+        </Heading>
         {upgradesInfo.map((upgrade, index) => (
-          <StoreItem upgrade={upgrade} state={state} index={index} dispatch={dispatch} />
+          <StoreItem
+            upgrade={upgrade}
+            state={state}
+            index={index}
+            dispatch={dispatch}
+            key={index}
+          />
         ))}
+        <Heading fontSize="lg" w="100%" ml="2">
+          Investments (wip)
+        </Heading>
       </VStack>
+
+      <Text position="absolute" bottom="1">
+        Checkout Amaclittle on{" "}
+        <Link
+          href="https://www.twitch.tv/amaclittle"
+          isExternal
+          textColor="purple.600"
+          fontWeight="semibold"
+        >
+          Twitch
+        </Link>
+      </Text>
     </Container>
   );
 };

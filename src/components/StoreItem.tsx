@@ -1,7 +1,7 @@
 import { Button, Box, Text, Image } from "@chakra-ui/react";
 import React from "react";
 import { StoreItemProps } from "../interfaces";
-import { calcCost, getArrayNumber } from "../pages";
+import { calcCost, getArrayNumber } from "../utility";
 
 export const StoreItem: React.FC<StoreItemProps> = ({ upgrade, state, index, dispatch }) => {
   const bal = getArrayNumber(state.upgrades, index);

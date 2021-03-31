@@ -11,6 +11,16 @@ export interface upgrade {
   img: string;
 }
 
+export interface investment {
+  name: string;
+  cost: number;
+  // For the onchain time it will be in blocks (~5 seconds on xDai)
+  // Offchain it will be milliseconds
+  time: number;
+  // Not including cost
+  reward: number;
+}
+
 export interface upgradeButtonPayload {
   upgrade: upgrade;
   index: number;
