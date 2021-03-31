@@ -39,7 +39,8 @@ const Index = () => {
       <DarkModeSwitch />
       <Button
         position="absolute"
-        top="1"
+        left="1"
+        bottom="1"
         onClick={() => {
           // TODO: Delete this button
           localStorage.setItem("state", JSON.stringify(defaultState));
@@ -93,7 +94,7 @@ const Index = () => {
         ))}
       </VStack>
 
-      <Text position="absolute" bottom="2">
+      <Text position="absolute" bottom="2" textAlign="center" w="100%">
         Check out Amaclittle on{" "}
         <Link
           href="https://www.twitch.tv/amaclittle"
