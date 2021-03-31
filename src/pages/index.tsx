@@ -4,9 +4,10 @@ import { Container } from "../components/Container";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
 import { useEffect, useReducer } from "react";
 import { UserStats } from "../components/UserStats";
-import { StoreItem } from "../components/StoreItem";
+import { StoreItem } from "../components/store/StoreItem";
 import { upgradesInfo } from "../misc/info";
 import { defaultState, reducer } from "../misc/state";
+import { SectionTitle } from "../components/store/SectionTitle";
 
 const Index = () => {
   const [state, dispatch] = useReducer(reducer, defaultState);
@@ -60,9 +61,7 @@ const Index = () => {
 
       <VStack borderWidth="thin" width="22em" p="2.5" borderRadius="2xl">
         <Heading>Store</Heading>
-        <Heading fontSize="lg" w="100%" ml="2">
-          Upgrades
-        </Heading>
+        <SectionTitle>Upgrades</SectionTitle>
         {upgradesInfo.map((upgrade, index) => (
           <StoreItem
             upgrade={upgrade}
@@ -72,12 +71,11 @@ const Index = () => {
             key={index}
           />
         ))}
-        <Heading fontSize="lg" w="100%" ml="2">
-          Investments (wip)
-        </Heading>
+        <SectionTitle>Investments</SectionTitle>
+        <SectionTitle>Skins</SectionTitle>
       </VStack>
 
-      <Text position="absolute" bottom="1">
+      <Text position="absolute" bottom="2">
         Checkout Amaclittle on{" "}
         <Link
           href="https://www.twitch.tv/amaclittle"
