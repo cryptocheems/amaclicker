@@ -4,10 +4,11 @@ import { Container } from "../components/Container";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
 import { useEffect, useReducer } from "react";
 import { UserStats } from "../components/UserStats";
-import { StoreItem } from "../components/store/StoreItem";
-import { upgradesInfo } from "../misc/info";
+import { skinsInfo, upgradesInfo } from "../misc/info";
 import { defaultState, reducer } from "../misc/state";
 import { SectionTitle } from "../components/store/SectionTitle";
+import { StoreUpgrade } from "../components/store/StoreUpgrade";
+import { StoreItem } from "../components/store/StoreItem";
 
 const Index = () => {
   const [state, dispatch] = useReducer(reducer, defaultState);
@@ -56,14 +57,14 @@ const Index = () => {
         _hover={{ transform: "scale(1.05, 1.1)" }}
         _active={{ transform: "scale(1.3, 0.9)" }}
       >
-        <Image src="amac.svg" />
+        <Image src={skinsInfo[state.skin].img} />
       </Button>
 
       <VStack borderWidth="thin" width="22em" p="2.5" borderRadius="2xl">
         <Heading>Store</Heading>
         <SectionTitle>Upgrades</SectionTitle>
         {upgradesInfo.map((upgrade, index) => (
-          <StoreItem
+          <StoreUpgrade
             upgrade={upgrade}
             state={state}
             index={index}
@@ -73,6 +74,21 @@ const Index = () => {
         ))}
         <SectionTitle>Investments</SectionTitle>
         <SectionTitle>Skins</SectionTitle>
+        {skinsInfo.map((skin, index) => (
+          <StoreItem
+            cost={skin.cost}
+            key={index}
+            dispatch={dispatch}
+            dispatchArgs={
+              state.skins[index]
+                ? { type: "skinEquip", payload: index }
+                : { type: "skinBuy", payload: { skinCost: skin.cost, index } }
+            }
+            img={skin.img}
+            name={skin.name}
+            colorScheme={state.skin === index ? "green" : state.skins[index] ? "orange" : undefined}
+          />
+        ))}
       </VStack>
 
       <Text position="absolute" bottom="2">

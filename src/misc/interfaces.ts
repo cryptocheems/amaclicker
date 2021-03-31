@@ -3,23 +3,31 @@ export interface UserStatsProps {
   clickReward: number;
 }
 
-export interface upgrade {
+export interface iAmacState extends UserStatsProps {
+  upgrades: number[];
+  // index of skin
+  skin: number;
+  // unlocked skins
+  skins: boolean[];
+}
+
+export interface item {
   name: string;
-  // * Note: this is a base cost
   cost: number;
-  boost: number;
   img: string;
 }
 
-export interface investment {
-  name: string;
-  cost: number;
+export interface upgrade extends item {
+  // * Note: cost is a base cost
+  boost: number;
+}
+
+export interface investment extends item {
   // For the onchain time it will be in blocks (~5 seconds on xDai)
   // Offchain it will be milliseconds
   time: number;
   // Not including cost
   reward: number;
-  img: string;
 }
 
 export interface upgradeButtonPayload {
@@ -27,11 +35,48 @@ export interface upgradeButtonPayload {
   index: number;
 }
 
-export interface iAmacState extends UserStatsProps {
-  upgrades: number[];
+export interface skinPayload {
+  skinCost: number;
+  index: number;
 }
 
-export interface StoreItemProps extends upgradeButtonPayload {
+type dispatchArgs = {
+  type: string;
+  payload?: unknown;
+};
+
+type dispatch = (value: dispatchArgs) => void;
+
+type colorScheme =
+  | (string & {})
+  | "green"
+  | "whiteAlpha"
+  | "blackAlpha"
+  | "gray"
+  | "red"
+  | "orange"
+  | "yellow"
+  | "teal"
+  | "blue"
+  | "cyan"
+  | "purple"
+  | "pink"
+  | "linkedin"
+  | "facebook"
+  | "messenger"
+  | "whatsapp"
+  | "twitter"
+  | "telegram";
+
+export interface StoreItemProps extends item {
+  balance?: number;
+  extra?: string;
+  colorScheme?: colorScheme;
+  dispatchArgs: dispatchArgs;
+  dispatch: dispatch;
+}
+
+export interface StoreUpgradeProps extends upgradeButtonPayload {
   state: iAmacState;
-  dispatch: (value: { type: string; payload?: unknown }) => void;
+  dispatch: dispatch;
 }

@@ -1,28 +1,35 @@
 import { Button, Box, Text, Image } from "@chakra-ui/react";
 import React from "react";
 import { StoreItemProps } from "../../misc/interfaces";
-import { calcCost, getArrayNumber } from "../../misc/utility";
 import { AmacIcon } from "../AmacIcon";
 
-export const StoreItem: React.FC<StoreItemProps> = ({ upgrade, state, index, dispatch }) => {
-  const bal = getArrayNumber(state.upgrades, index);
-
+export const StoreItem: React.FC<StoreItemProps> = ({
+  dispatch,
+  dispatchArgs,
+  cost,
+  img,
+  name,
+  balance,
+  extra,
+  colorScheme,
+}) => {
   return (
     <Button
       height="5em"
       padding="2"
       width="100%"
       justifyContent="space-around"
-      onClick={() => dispatch({ type: "upgrade", payload: { upgrade, index } })}
+      onClick={() => dispatch(dispatchArgs)}
+      colorScheme={colorScheme}
     >
-      <Image src={upgrade.img} fit="cover" maxHeight="100%" />
+      <Image src={img} fit="cover" maxHeight="100%" />
       <Box mx="3" textAlign="left">
-        <Text fontSize="2xl">{upgrade.name}</Text>
-        <Text fontSize="sm" /* TODO: replace Ā with logo */ alignItems="center" d="inline-flex">
-          {calcCost(upgrade, bal)} <AmacIcon /> +{upgrade.boost} CPC
+        <Text fontSize="2xl">{name}</Text>
+        <Text fontSize="sm" alignItems="center" d="inline-flex">
+          {cost} <AmacIcon /> {extra}
         </Text>
       </Box>
-      <Text fontSize="xxx-large">{bal}</Text>
+      <Text fontSize="xxx-large">{balance}</Text>
     </Button>
   );
 };

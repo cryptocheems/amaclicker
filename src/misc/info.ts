@@ -1,7 +1,7 @@
 // This is where all the information about all the things you can buy is
 // E.g upgrades, investments, skins
 
-import { investment, upgrade } from "./interfaces";
+import { investment, item, upgrade } from "./interfaces";
 import { htm } from "./utility";
 
 export const upgradesInfo: upgrade[] = [
@@ -33,5 +33,18 @@ export const investmentsInfo: investment[] = [
     reward: 100_000,
     time: htm(24),
     img: "cheemscoin.png",
+  },
+];
+
+export const skinsInfo: item[] = [
+  {
+    name: "Default",
+    cost: 0,
+    img: "amac.svg",
+  },
+  {
+    name: "Trollface",
+    cost: 10_000,
+    img: "trollface.png",
   },
 ];
