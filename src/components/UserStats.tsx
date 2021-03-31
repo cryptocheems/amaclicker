@@ -1,6 +1,6 @@
 import { Box, Text } from "@chakra-ui/layout";
 import toDecimals from "round-to-decimal";
-import { UserStatsProps } from "../interfaces";
+import { UserStatsProps } from "../misc/interfaces";
 
 function formatNumber(amount: number) {
   return toDecimals(amount, 2);

@@ -1,7 +1,7 @@
 import { Button, Box, Text, Image } from "@chakra-ui/react";
 import React from "react";
-import { StoreItemProps } from "../interfaces";
-import { calcCost, getArrayNumber } from "../utility";
+import { StoreItemProps } from "../misc/interfaces";
+import { calcCost, getArrayNumber } from "../misc/utility";
 import { AmacIcon } from "./AmacIcon";
 
 export const StoreItem: React.FC<StoreItemProps> = ({ upgrade, state, index, dispatch }) => {

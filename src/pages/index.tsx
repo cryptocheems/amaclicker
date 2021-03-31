@@ -4,60 +4,9 @@ import { Container } from "../components/Container";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
 import { useEffect, useReducer } from "react";
 import { UserStats } from "../components/UserStats";
-import { iAmacState, upgrade, upgradeButtonPayload } from "../interfaces";
 import { StoreItem } from "../components/StoreItem";
-import { calcCost, getArrayNumber } from "../utility";
-
-const upgradesInfo: upgrade[] = [
-  {
-    name: "Gift Card",
-    cost: 19.99,
-    boost: 0.1,
-    img: "giftcard.png",
-  },
-  {
-    name: "Cone",
-    cost: 1000,
-    boost: 10,
-    img: "cone.png",
-  },
-];
-
-const defaultState: iAmacState = {
-  amacoins: 0,
-  clickReward: 1,
-  upgrades: [],
-};
-
-function reducer(state: iAmacState, action: { type: string; payload?: unknown }): iAmacState {
-  const coins = state.amacoins;
-  switch (action.type) {
-    case "click":
-      return { ...state, amacoins: coins + state.clickReward };
-    case "upgrade":
-      const payload = action.payload as upgradeButtonPayload;
-      const upgrade = payload.upgrade;
-      const upgrades = state.upgrades;
-      const userAmount = getArrayNumber(upgrades, payload.index);
-      const cost = calcCost(upgrade, userAmount);
-
-      if (coins >= cost) {
-        upgrades[payload.index] = userAmount + 1;
-        return {
-          ...state,
-          amacoins: coins - cost,
-          clickReward: state.clickReward + upgrade.boost,
-          upgrades,
-        };
-      } else {
-        return state;
-      }
-    case "pageLoad":
-      return action.payload as iAmacState;
-    default:
-      throw new Error();
-  }
-}
+import { upgradesInfo } from "../misc/info";
+import { defaultState, reducer } from "../misc/state";
 
 const Index = () => {
   const [state, dispatch] = useReducer(reducer, defaultState);

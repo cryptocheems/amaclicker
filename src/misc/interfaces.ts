@@ -19,6 +19,7 @@ export interface investment {
   time: number;
   // Not including cost
   reward: number;
+  img: string;
 }
 
 export interface upgradeButtonPayload {
