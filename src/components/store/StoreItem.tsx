@@ -22,7 +22,7 @@ export const StoreItem: React.FC<StoreItemProps> = ({
       onClick={() => dispatch(dispatchArgs)}
       colorScheme={colorScheme}
     >
-      <Image src={img} fit="cover" maxHeight="100%" />
+      <Image src={img} fit="cover" maxHeight="100%" draggable="false" />
       <Box mx="3" textAlign="left">
         <Text fontSize="2xl">{name}</Text>
         <Text fontSize="sm" alignItems="center" d="inline-flex">
