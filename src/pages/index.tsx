@@ -1,4 +1,4 @@
-import { Button, Heading, Image, Link, Text, VStack } from "@chakra-ui/react";
+import { Button, GridItem, Heading, Image, Link, Text, VStack } from "@chakra-ui/react";
 import Head from "next/head";
 import { Container } from "../components/Container";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
@@ -48,19 +48,21 @@ const Index = () => {
       >
         Reset State
       </Button>
-      <Button
-        onClick={() => dispatch({ type: "click" })}
-        fontSize="9xl"
-        borderRadius="full"
-        height="2em"
-        width="2em"
-        _hover={{ transform: "scale(1.05, 1.1)" }}
-        _active={{ transform: "scale(1.3, 0.9)" }}
-      >
-        <Image src={skinsInfo[state.skin].img} />
-      </Button>
+      <GridItem colStart={2}>
+        <Button
+          onClick={() => dispatch({ type: "click" })}
+          fontSize="9xl"
+          borderRadius="full"
+          height="2em"
+          width="2em"
+          _hover={{ transform: "scale(1.05, 1.1)" }}
+          _active={{ transform: "scale(1.3, 0.9)" }}
+        >
+          <Image src={skinsInfo[state.skin].img} draggable="false" />
+        </Button>
+      </GridItem>
 
-      <VStack borderWidth="thin" width="22em" p="2.5" borderRadius="2xl">
+      <VStack borderWidth="thin" width="25em" p="2.5" borderRadius="2xl">
         <Heading>Store</Heading>
         <SectionTitle>Upgrades</SectionTitle>
         {upgradesInfo.map((upgrade, index) => (
@@ -92,7 +94,7 @@ const Index = () => {
       </VStack>
 
       <Text position="absolute" bottom="2">
-        Checkout Amaclittle on{" "}
+        Check out Amaclittle on{" "}
         <Link
           href="https://www.twitch.tv/amaclittle"
           isExternal

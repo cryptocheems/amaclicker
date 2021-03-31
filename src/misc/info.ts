@@ -43,8 +43,18 @@ export const skinsInfo: item[] = [
     img: "amac.svg",
   },
   {
+    name: "Amogus",
+    cost: 1000,
+    img: "amogus.png",
+  },
+  {
     name: "Trollface",
     cost: 10_000,
     img: "trollface.png",
+  },
+  {
+    name: "Cheemscoin Pet",
+    cost: 1_000_000,
+    img: "cheemscoinpet.gif",
   },
 ];

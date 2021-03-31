@@ -1,18 +1,20 @@
-import { Flex, useColorMode, FlexProps } from "@chakra-ui/react";
+import { useColorMode, Grid, GridProps } from "@chakra-ui/react";
 
-export const Container = (props: FlexProps) => {
+export const Container = (props: GridProps) => {
   const { colorMode } = useColorMode();
 
   const bgColor = { light: "gray.50", dark: "gray.900" };
 
-  const color = { light: "black", dark: "white" };
   return (
-    <Flex
-      direction="column"
-      alignItems="center"
-      justifyContent="center"
+    // * If colors are wrong I need to add
+    // const color = { light: "black", dark: "white" };
+    // and
+    // color={color[colorMode]}
+    <Grid
+      templateColumns="3fr 1fr 3fr"
+      placeItems="center"
       bg={bgColor[colorMode]}
-      color={color[colorMode]}
+      gap="4"
       {...props}
     />
   );
