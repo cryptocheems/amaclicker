@@ -13,3 +13,4 @@ https://www.twitch.tv/amaclittle
 - Investments
   - buy thing you can redeem in a couple hours for more stuff
 - Backgrounds and skins
+- Remove light mode

@@ -103,13 +103,13 @@ const Index = () => {
         borderRadius="full"
         height="2em"
         width="2em"
-        _hover={{ transform: "scale(2.9, 0.5)" }}
-        _active={{ transform: "scale(0.5, 3)" }}
+        _hover={{ transform: "scale(1.05, 1.1)" }}
+        _active={{ transform: "scale(1.3, 0.9)" }}
       >
-        <Image src="amacPFP.png" />
+        <Image src="amac.svg" />
       </Button>
 
-      <VStack borderWidth="thin" width="20em" p="2.5" borderRadius="2xl">
+      <VStack borderWidth="thin" width="22em" p="2.5" borderRadius="2xl">
         <Heading>Store</Heading>
         <Heading fontSize="lg" w="100%" ml="2">
           Upgrades
