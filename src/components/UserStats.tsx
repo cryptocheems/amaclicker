@@ -11,7 +11,7 @@ export const UserStats: React.FC<UserStatsProps> = ({ amacoins, clickReward }) =
   return (
     <Box position="fixed" top="1rem" left="1rem">
       <Text>Amacoins: {formatNumber(amacoins)}</Text>
-      <Text>Coins Per Click: {formatNumber(clickReward)}</Text>
+      <Text>Coins Per Click (CPC): {formatNumber(clickReward)}</Text>
     </Box>
   );
 };

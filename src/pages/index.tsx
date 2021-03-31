@@ -1,31 +1,37 @@
-import { Button, Image } from "@chakra-ui/react";
+import { Box, Button, Heading, Image, Text, VStack } from "@chakra-ui/react";
+import Head from "next/head";
 import toDecimals from "round-to-decimal";
 import { Container } from "../components/Container";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
 import { useEffect, useReducer } from "react";
 import { UserStats } from "../components/UserStats";
 import { iAmacState, upgrade, upgradeButtonPayload } from "../interfaces";
+import { StoreItem } from "../components/StoreItem";
+
+const upgradesInfo: upgrade[] = [
+  {
+    name: "Gift Card",
+    cost: 19.99,
+    boost: 0.1,
+    img: "giftcard.png",
+  },
+  {
+    name: "Cone",
+    cost: 1000,
+    boost: 10,
+    img: "cone.png",
+  },
+];
 
 const defaultState: iAmacState = {
   amacoins: 0,
   clickReward: 1,
-  upgrades: [
-    {
-      name: "$19.99 Amacoin Gift Card",
-      cost: 19.99,
-      boost: 0.1,
-      userAmount: 0,
-    },
-    {
-      name: "Cheems",
-      cost: 1000,
-      boost: 10,
-      userAmount: 0,
-    },
-  ],
+  upgrades: [],
 };
 
-const calcCost = (upgrade: upgrade) => toDecimals(upgrade.cost * 1.01 ** upgrade.userAmount, 2);
+export const calcCost = (upgrade: upgrade, amount: number) =>
+  toDecimals(upgrade.cost * 1.01 ** amount, 2);
+export const getArrayNumber = (array: number[], index: number) => array[index] ?? 0;
 
 function reducer(state: iAmacState, action: { type: string; payload?: unknown }): iAmacState {
   const coins = state.amacoins;
@@ -36,12 +42,11 @@ function reducer(state: iAmacState, action: { type: string; payload?: unknown })
       const payload = action.payload as upgradeButtonPayload;
       const upgrade = payload.upgrade;
       const upgrades = state.upgrades;
-      const cost = calcCost(upgrade);
+      const userAmount = getArrayNumber(upgrades, payload.index);
+      const cost = calcCost(upgrade, userAmount);
 
       if (coins >= cost) {
-        const currentUpgrade = upgrades[payload.index];
-        const userAmount = currentUpgrade.userAmount + 1;
-        upgrades[payload.index] = { ...currentUpgrade, userAmount };
+        upgrades[payload.index] = userAmount + 1;
         return {
           ...state,
           amacoins: coins - cost,
@@ -76,6 +81,12 @@ const Index = () => {
 
   return (
     <Container height="100vh">
+      <Head>
+        <link rel="shortcut icon" href="favicon.ico" />
+        <title>Amaclicker</title>
+        <meta name="description" content="Just click to get the coin of the best twitch streamer" />
+      </Head>
+
       <UserStats amacoins={state.amacoins} clickReward={state.clickReward} />
 
       <DarkModeSwitch />
@@ -88,16 +99,22 @@ const Index = () => {
       >
         Reset State
       </Button>
-      <Button onClick={() => dispatch({ type: "click" })} fontSize="8xl" padding="20">
-        <Image src="amacPFP.png" width="150px" />
+      <Button
+        onClick={() => dispatch({ type: "click" })}
+        fontSize="9xl"
+        borderRadius="full"
+        height="2em"
+        width="2em"
+      >
+        <Image src="amacPFP.png" />
       </Button>
 
-      {state.upgrades.map((upgrade, index) => (
-        <Button onClick={() => dispatch({ type: "upgrade", payload: { upgrade, index } })}>
-          {upgrade.name} (cost: {calcCost(upgrade)} amac, +{upgrade.boost} amac, bal:{" "}
-          {upgrade.userAmount})
-        </Button>
-      ))}
+      <VStack borderWidth="thin" width="20em">
+        <Heading>Store</Heading>
+        {upgradesInfo.map((upgrade, index) => (
+          <StoreItem upgrade={upgrade} state={state} index={index} dispatch={dispatch} />
+        ))}
+      </VStack>
     </Container>
   );
 };

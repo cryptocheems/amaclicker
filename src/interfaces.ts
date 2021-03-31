@@ -5,9 +5,10 @@ export interface UserStatsProps {
 
 export interface upgrade {
   name: string;
+  // * Note: this is a base cost
   cost: number;
   boost: number;
-  userAmount: number;
+  img: string;
 }
 
 export interface upgradeButtonPayload {
@@ -16,5 +17,10 @@ export interface upgradeButtonPayload {
 }
 
 export interface iAmacState extends UserStatsProps {
-  upgrades: upgrade[];
+  upgrades: number[];
+}
+
+export interface StoreItemProps extends upgradeButtonPayload {
+  state: iAmacState;
+  dispatch: (value: { type: string; payload?: unknown }) => void;
 }
