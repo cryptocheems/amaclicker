@@ -1,6 +1,7 @@
 // The default state and reducer used in index.tsx
 
-import { iAmacState, skinPayload, upgradeButtonPayload } from "./interfaces";
+import { investmentsInfo } from "./info";
+import { iAmacState, investPayload, skinPayload, upgradeButtonPayload } from "./interfaces";
 import { getArrayNumber, calcCost } from "./utility";
 
 export const defaultState: iAmacState = {
@@ -9,6 +10,7 @@ export const defaultState: iAmacState = {
   upgrades: [],
   skin: 0,
   skins: [true],
+  investments: [],
 };
 
 export function reducer(
@@ -55,10 +57,33 @@ export function reducer(
       return { ...state, skin: skindex };
     }
     // TODO: This
-    case "invest":
+    case "invest": {
+      const payload = action.payload as investPayload;
+      const cost = payload.investment.cost;
+      if (coins >= cost) {
+        const investments = state.investments;
+        const now = new Date();
+        investments.push({
+          id: payload.index,
+          redeemTime: now.getTime() + payload.investment.time,
+        });
+
+        return { ...state, amacoins: coins - cost, investments };
+      }
       return state;
-    case "redeem":
+    }
+    case "redeem": {
+      const index = action.payload as number;
+      const investments = state.investments;
+      const toRedeem = investments[index];
+      if (toRedeem.redeemTime <= new Date().getTime()) {
+        const reward = investmentsInfo[toRedeem.id].reward;
+        delete investments[index];
+        return { ...state, investments, amacoins: coins + reward };
+      }
       return state;
+    }
+
     case "pageLoad":
       return action.payload as iAmacState;
     default:

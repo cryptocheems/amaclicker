@@ -1,9 +1,13 @@
 import { Image } from "@chakra-ui/image";
 import { Circle } from "@chakra-ui/layout";
 
-export const AmacIcon: React.FC = () => {
+interface AmacIconProps {
+  size?: number;
+}
+
+export const AmacIcon: React.FC<AmacIconProps> = ({ size }) => {
   return (
-    <Circle w="5" h="5" bg="gray.800" display="inline-flex" ml="2px" mr="2">
+    <Circle w={size || 5} h={size || 5} bg="gray.800" display="inline-flex" mx="2px">
       <Image src="amac.svg" w="90%" />
     </Circle>
   );

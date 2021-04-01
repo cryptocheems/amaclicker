@@ -21,6 +21,13 @@ export const upgradesInfo: upgrade[] = [
 
 export const investmentsInfo: investment[] = [
   {
+    name: "Physically Pog",
+    cost: 10,
+    reward: 40,
+    time: htm(0.1),
+    img: "pog.png",
+  },
+  {
     name: "Stream on Twitch",
     cost: 100,
     reward: 500,

@@ -10,3 +10,8 @@ export const getArrayNumber = (array: number[], index: number) => array[index] ?
  * Converts hours to milliseconds
  */
 export const htm = (hours: number) => 1000 * 60 * 60 * hours;
+
+/**
+ * Converts milliseconds to hours
+ */
+export const mth = (milliseconds: number) => milliseconds / 3600000;

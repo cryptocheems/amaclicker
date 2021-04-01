@@ -10,7 +10,9 @@ https://www.twitch.tv/amaclittle
 - Max upgrade button
 - Rewards for different coin amounts like 1k gives you certain background
 - Usernames / profile pics
-- Investments
-  - buy thing you can redeem in a couple hours for more stuff
-- Backgrounds and skins
+- Maybe change investments ui to SimpleGrid instead of Flex
+- Backgrounds
 - Remove light mode
+- Make store heading not disappear and make scroll look pog
+- Ability to collapse shop sections
+- Add Cheemscoin ad

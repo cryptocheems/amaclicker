@@ -3,14 +3,6 @@ export interface UserStatsProps {
   clickReward: number;
 }
 
-export interface iAmacState extends UserStatsProps {
-  upgrades: number[];
-  // index of skin
-  skin: number;
-  // unlocked skins
-  skins: boolean[];
-}
-
 export interface item {
   name: string;
   cost: number;
@@ -30,6 +22,22 @@ export interface investment extends item {
   reward: number;
 }
 
+export interface boughtInvestment {
+  // In milliseconds
+  redeemTime: number;
+  // Index in the array of investments
+  id: number;
+}
+
+export interface iAmacState extends UserStatsProps {
+  upgrades: number[];
+  // index of skin
+  skin: number;
+  // unlocked skins
+  skins: boolean[];
+  investments: boughtInvestment[];
+}
+
 export interface upgradeButtonPayload {
   upgrade: upgrade;
   index: number;
@@ -37,6 +45,11 @@ export interface upgradeButtonPayload {
 
 export interface skinPayload {
   skinCost: number;
+  index: number;
+}
+
+export interface investPayload {
+  investment: investment;
   index: number;
 }
 
@@ -70,7 +83,7 @@ type colorScheme =
 
 export interface StoreItemProps extends item {
   balance?: number;
-  extra?: string;
+  extra?: any;
   colorScheme?: colorScheme;
   dispatchArgs: dispatchArgs;
   dispatch: dispatch;

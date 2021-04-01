@@ -1,17 +1,32 @@
-import { Button, GridItem, Heading, Image, Link, Text, VStack } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  GridItem,
+  Heading,
+  Image,
+  Link,
+  Stat,
+  StatHelpText,
+  StatNumber,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import Head from "next/head";
 import { Container } from "../components/Container";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { UserStats } from "../components/UserStats";
-import { skinsInfo, upgradesInfo } from "../misc/info";
+import { investmentsInfo, skinsInfo, upgradesInfo } from "../misc/info";
 import { defaultState, reducer } from "../misc/state";
 import { SectionTitle } from "../components/store/SectionTitle";
 import { StoreUpgrade } from "../components/store/StoreUpgrade";
 import { StoreItem } from "../components/store/StoreItem";
+import { mth } from "../misc/utility";
+import { AmacIcon } from "../components/AmacIcon";
 
 const Index = () => {
   const [state, dispatch] = useReducer(reducer, defaultState);
+  const [now, setNow] = useState(new Date().getTime());
 
   // Called when page loads
   useEffect(() => {
@@ -24,6 +39,7 @@ const Index = () => {
   // Called whenever state changes
   useEffect(() => {
     localStorage.setItem("state", JSON.stringify(state));
+    setNow(new Date().getTime());
   }, [state]);
 
   return (
@@ -49,6 +65,43 @@ const Index = () => {
       >
         Reset State
       </Button>
+
+      <GridItem borderWidth="thin" borderRadius="2xl" p="2.5">
+        <Heading textAlign="center">Investments</Heading>
+        <Flex maxW="33em" flexWrap="wrap">
+          {state.investments.map((investment, i) => {
+            if (investment) {
+              const iInfo = investmentsInfo[investment.id];
+              const redeemTime = investment.redeemTime;
+
+              return (
+                <Button
+                  height="5em"
+                  m="1"
+                  padding="2"
+                  onClick={() => dispatch({ type: "redeem", payload: i })}
+                >
+                  <Image
+                    src={iInfo.img}
+                    filter={redeemTime > now ? "grayscale(90%)" : undefined}
+                    fit="cover"
+                    maxHeight="100%"
+                    draggable="false"
+                  />
+                  <Stat key={i}>
+                    <StatNumber fontSize="3xl" alignContent="center" display="inline-flex">
+                      {iInfo.reward} <AmacIcon size={8} />
+                    </StatNumber>
+                    <StatHelpText>{new Date(redeemTime).toLocaleString()}</StatHelpText>
+                  </Stat>
+                </Button>
+              );
+            }
+            return null;
+          })}
+        </Flex>
+      </GridItem>
+
       <GridItem colStart={2}>
         <Button
           onClick={() => dispatch({ type: "click" })}
@@ -63,7 +116,14 @@ const Index = () => {
         </Button>
       </GridItem>
 
-      <VStack borderWidth="thin" width="25em" p="2.5" borderRadius="2xl">
+      <VStack
+        borderWidth="thin"
+        width="27em"
+        p="2.5"
+        borderRadius="2xl"
+        maxH="40em"
+        overflowY="scroll"
+      >
         <Heading>Store</Heading>
         <SectionTitle>Upgrades</SectionTitle>
         {upgradesInfo.map((upgrade, index) => (
@@ -76,6 +136,24 @@ const Index = () => {
           />
         ))}
         <SectionTitle>Investments</SectionTitle>
+        {investmentsInfo.map((investment, index) => (
+          <StoreItem
+            dispatch={dispatch}
+            key={index}
+            img={investment.img}
+            cost={investment.cost}
+            name={investment.name}
+            extra={
+              <Text placeContent="center" display="flex">
+                {mth(investment.time)} hours; {investment.reward}
+                <AmacIcon />
+                reward
+              </Text>
+            }
+            // TODO: This
+            dispatchArgs={{ type: "invest", payload: { investment, index } }}
+          />
+        ))}
         <SectionTitle>Skins</SectionTitle>
         {skinsInfo.map((skin, index) => (
           <StoreItem
