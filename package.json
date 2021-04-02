@@ -12,6 +12,10 @@
     "@chakra-ui/theme-tools": "1.0.4",
     "@emotion/react": "11.1.5",
     "@emotion/styled": "11.1.5",
+    "@openzeppelin/contracts": "^4.0.0",
+    "@truffle/hdwallet-provider": "^1.2.6",
+    "@usedapp/core": "^0.2.2",
+    "dotenv": "^8.2.0",
     "framer-motion": "^3.5.2",
     "next": "latest",
     "react": "^17.0.1",
@@ -22,7 +26,12 @@
     "@types/node": "^14.6.0",
     "@types/react": "^16.9.46",
     "@types/react-dom": "^16.9.8",
+    "prettier-plugin-solidity": "^1.0.0-beta.7",
     "typescript": "4.0.5"
   },
-  "license": "GPLv3"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cryptocheems/amaclicker.git"
+  },
+  "license": "GPL-3.0-or-later"
 }

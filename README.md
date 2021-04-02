@@ -16,3 +16,5 @@ https://www.twitch.tv/amaclittle
 - Make store heading not disappear and make scroll look pog
 - Ability to collapse shop sections
 - Add Cheemscoin ad
+- Make amacoins and cpc on top and/or below the big amacoin
+- Make stuff in store grayscale if you can't afford it
