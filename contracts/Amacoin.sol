@@ -14,7 +14,6 @@ contract Amacoin is ERC777, Ownable {
   // TODO: Make not beta
   constructor(address[] memory defaultOperators) ERC777("Beta Amacoin", "bAMAC", defaultOperators) {
     // TODO: Mint to cheems holders and chris
-    _mint(msg.sender, 1000 * 10**18, "", "");
     amaclicker = defaultOperators[0];
   }
 

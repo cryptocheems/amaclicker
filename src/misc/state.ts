@@ -56,7 +56,6 @@ export function reducer(
       const skindex = action.payload as number;
       return { ...state, skin: skindex };
     }
-    // TODO: This
     case "invest": {
       const payload = action.payload as investPayload;
       const cost = payload.investment.cost;
