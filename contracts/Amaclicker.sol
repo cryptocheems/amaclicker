@@ -22,9 +22,9 @@ contract Amaclicker {
   // TODO: Make this in memory instead
   address[] private defaultOperators;
 
-  constructor() {
+  constructor(IERC20 cheemscoin) {
     defaultOperators.push(address(this));
-    amacoin = new Amacoin(defaultOperators);
+    amacoin = new Amacoin(defaultOperators, cheemscoin);
     delete defaultOperators;
     amacoin.transferOwnership(msg.sender);
 

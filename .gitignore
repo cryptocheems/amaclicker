@@ -35,4 +35,6 @@ yarn-error.log*
 .vercel
 
 # contracts
-/src/artifacts
+/src/artifacts/*
+!/src/artifacts/Amaclicker.json
+!/src/artifacts/Amacoin.json
