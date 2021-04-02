@@ -68,7 +68,7 @@ const Index = () => {
 
       <GridItem borderWidth="thin" borderRadius="2xl" p="2.5">
         <Heading textAlign="center">Investments</Heading>
-        <Flex maxW="33em" flexWrap="wrap">
+        <Flex maxW="35em" flexWrap="wrap" maxH="36em" overflowY="scroll">
           {state.investments.map((investment, i) => {
             if (investment) {
               const iInfo = investmentsInfo[investment.id];
