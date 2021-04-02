@@ -1,4 +1,3 @@
-// TODO: Make .env
 require("dotenv").config();
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 
@@ -19,7 +18,7 @@ module.exports = {
   },
   compilers: {
     solc: {
-      version: "0.7.4",
+      version: "0.8.3",
     },
   },
 };

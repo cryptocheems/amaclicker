@@ -18,3 +18,5 @@ https://www.twitch.tv/amaclittle
 - Add Cheemscoin ad
 - Make amacoins and cpc on top and/or below the big amacoin
 - Make stuff in store grayscale if you can't afford it
+- Claim all button for investments
+- move interfaces.ts to types folder
