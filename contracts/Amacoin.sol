@@ -25,7 +25,7 @@ contract Amacoin is ERC777, Ownable {
 
   function mint(address account, uint256 amount) external {
     require(msg.sender == amaclicker, "Only Amaclicker contract can mint");
-    require(cheemscoin.balanceOf(msg.sender) > minCheems, "Must have Cheemscoin");
+    require(cheemscoin.balanceOf(account) > minCheems, "Must have Cheemscoin");
     _mint(account, amount, "", "");
   }
 

@@ -13,5 +13,5 @@ module.exports = async (deployer, network, accounts) => {
     await singletons.ERC1820Registry(accounts[0]);
   }
 
-  await deployer.deploy(Amaclicker);
+  await deployer.deploy(Amaclicker, "0xEaF7B3376173DF8BC0C22Ad6126943cC8353C1Ee");
 };

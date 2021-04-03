@@ -9,9 +9,9 @@ contract Amaclicker {
 
   // User info
   mapping(address => uint256) public clickRewards;
-  mapping(address => uint256[]) upgrades;
-  mapping(address => boughtInvestment[]) investments;
-  mapping(address => bool[]) skins;
+  mapping(address => uint256[]) public upgrades;
+  mapping(address => boughtInvestment[]) public investments;
+  mapping(address => bool[]) public skins;
 
   // TODO: Finish these
   // Items info
@@ -19,13 +19,10 @@ contract Amaclicker {
   investment[] public investmentsInfo;
   uint256[] public skinsInfo = [0, 1000 * 10**18, 10000 * 10**18];
 
-  // TODO: Make this in memory instead
-  address[] private defaultOperators;
-
   constructor(IERC20 cheemscoin) {
-    defaultOperators.push(address(this));
+    address[] memory defaultOperators = new address[](1);
+    defaultOperators[0] = address(this);
     amacoin = new Amacoin(defaultOperators, cheemscoin);
-    delete defaultOperators;
     amacoin.transferOwnership(msg.sender);
 
     // Initialise items info
@@ -34,7 +31,6 @@ contract Amaclicker {
     investmentsInfo.push(investment(10 * 10**18, 40 * 10**18, 72));
   }
 
-  // TODO: require caller to own cheemscoin
   function click() external {
     amacoin.mint(msg.sender, clickRewards[msg.sender] + 10**18);
   }
